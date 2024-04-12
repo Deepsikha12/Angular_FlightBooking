@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="mt-3">Flight List</h1>
+
+  <div class="d-flex justify-content-end mt-3">
+    <a [routerLink]="['Add Flights']" class="btn btn-primary">Add Flights</a>
+  </div>
+
+  <ng-container *ngIf="flight">
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Aeroplane Id</th>
+          <th>Aeroplane Name</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>fare</th>
+          <th>Seating Capacity</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fl of flight">
+          <td>{{fl.aeroId}}</td>
+          <td>{{fl.aeroName}}</td>
+          <td>{{fl.from_city}}</td>
+          <td>{{fl.to_city}}</td>
+          <td>{{fl.departure}}</td>
+          <td>{{fl.arrival}}</td>
+          <td>{{fl.fare}}</td>
+          <td>{{fl.seatingCapacity}}</td>
+          <td>
+            <button class="btn btn-primary green-button" [routerLink]="['Edit',fl.aeroId]">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+</div>

@@ -1,0 +1,18 @@
+.background-container {
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/44/475/694/airplane-flight-sunset-wallpaper-preview.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: calc(100vh - 56px); /* Subtract the navbar height from the viewport height */
+  position: relative; /* Ensure that child elements are positioned relative to this container */
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+

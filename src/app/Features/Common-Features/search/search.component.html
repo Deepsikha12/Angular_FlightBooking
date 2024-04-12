@@ -1,0 +1,65 @@
+<div class="container-fluid p-0" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/462/665/144/clouds-the-plane-the-moon-flight-wallpaper-preview.jpg'); background-size: cover; background-position: center;">
+
+  <h1 class="mt-3 text-center">Search for flights</h1>
+  <div class="d-flex justify-content-end mt-3">
+  </div>
+
+  <div class="card mt-3 p-4 mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+      <form [formGroup]="flightSearchForm" (ngSubmit)="search()">
+        <div class="form-group mb-3">
+          <label for="from_city">Source:</label>
+          <input type="text" class="form-control" id="from_city" name="from_city" formControlName="from_city" required>
+          <div *ngIf="flightSearchForm.get('from_city')?.invalid && flightSearchForm.get('from_city')?.touched" class="text-danger">
+            Source is required.
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="to_city">Destination:</label>
+          <input type="text" class="form-control" id="to_city"  name="to_city" formControlName="to_city" required>
+          <div *ngIf="flightSearchForm.get('to_city')?.invalid && flightSearchForm.get('to_city')?.touched" class="text-danger">
+            Destination is required.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="departure">Departure Date:</label>
+          <input type="date" class="form-control" id="departure" name="departure" formControlName="departure" required>
+          <div *ngIf="flightSearchForm.get('departure')?.invalid && flightSearchForm.get('departure')?.touched" class="text-danger">
+            Departure date is required.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <ng-container *ngIf="filteredFlights && filteredFlights.length > 0; else noFlights">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let fl of filteredFlights">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ fl.aeroName }}</h5>
+            <p class="card-text"><strong>Aeroplane Id:</strong> {{ fl.aeroId }}</p>
+            <p class="card-text"><strong>Source:</strong> {{ fl.from_city }}</p>
+            <p class="card-text"><strong>Destination:</strong> {{ fl.to_city }}</p>
+            <p class="card-text"><strong>Departure:</strong> {{ fl.departure | date:'shortDate' }}</p>
+            <p class="card-text"><strong>Arrival:</strong> {{ fl.arrival | date:'shortDate' }}</p>
+            <p class="card-text"><strong>Fare:</strong> {{ fl.fare }}</p>
+            <p class="card-text"><strong>Seating Capacity:</strong> {{ fl.seatingCapacity }}</p>
+            <a [routerLink]="['Book Ticket',fl.aeroId]" class="btn btn-primary">Book Ticket</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noFlights>
+    <p>No flights available for the selected criteria.</p>
+  </ng-template>
+</div>
+
+
+
