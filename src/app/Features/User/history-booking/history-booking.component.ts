@@ -61,7 +61,6 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
   }
 
   cancelBookingConfirmation(aeroId: string, passengerId: number): void {
-    console.log(aeroId);
     this.confirmationPopupVisible = true;
     this.cancellationAeroId = aeroId;
     this.cancellationPassengerId = passengerId;

@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   departure: Date = new Date;
   flightSearchForm!: FormGroup;
   private subscriptions: Subscription[] = [];
+  minDepartureDate?: Date;
 
   constructor(
     private flightlistservice: FlightsService,
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       to_city: [''],
       departure: ['']
     });
+    this.minDepartureDate = new Date();
   }
 
   loadFlights() {

@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="Flight Booking">Flight Booking</a>
@@ -21,17 +22,26 @@
         <a class="nav-link" [routerLink]="['History',user.email]">History</a>
       </ng-container>
 
-        <ng-template #ShowLogout>
-          <div class="d-flex align-items-center">
-            <span>{{user?.email}}</span>
-            <button class="btn btn-primary ms-3" (click)="onLogout()">Logout</button>
+      <ng-template #ShowLogout>
+        <div class="d-flex align-items-center">
+          <!--span>{{user?.email}}</span-->
+          <div class="dropdown ms-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span>{{user?.email}}</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" [routerLink]="['Manage Account',user?.email]">Manage Account</a>
+              <!--a class="dropdown-item" href="#" >Delete Account</a-->
+            </div>
           </div>
-
-        </ng-template>
-
+          <button class="btn btn-primary ms-3" (click)="onLogout()">Logout</button>
+        </div>
+      </ng-template>
       </div>
     </div>
   </div>
 </nav>
+
+
 
 

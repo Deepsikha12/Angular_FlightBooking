@@ -16,6 +16,7 @@ import { FirstPageComponent } from './Features/Common-Features/first-page/first-
 import { SearchComponent } from './Features/Common-Features/search/search.component';
 import { BookingComponent } from './Features/User/booking/booking.component';
 import { HistoryBookingComponent } from './Features/User/history-booking/history-booking.component';
+import { UserdetailsComponent } from './Features/User/userdetails/userdetails.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HistoryBookingComponent } from './Features/User/history-booking/history
     FirstPageComponent,
     SearchComponent,
     BookingComponent,
-    HistoryBookingComponent
+    HistoryBookingComponent,
+    UserdetailsComponent
   ],
   imports: [
     BrowserModule,

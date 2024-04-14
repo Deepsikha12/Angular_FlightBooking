@@ -24,7 +24,9 @@
 
         <div class="form-group mb-3">
           <label for="departure">Departure Date:</label>
-          <input type="date" class="form-control" id="departure" name="departure" formControlName="departure" required>
+          <input type="date" class="form-control" id="departure" name="departure" formControlName="departure" required
+       [min]="minDepartureDate | date:'yyyy-MM-dd'">
+
           <div *ngIf="flightSearchForm.get('departure')?.invalid && flightSearchForm.get('departure')?.touched" class="text-danger">
             Departure date is required.
           </div>

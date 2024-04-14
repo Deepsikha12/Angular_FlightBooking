@@ -20,6 +20,10 @@ export class NavbarComponent implements OnInit {
     .subscribe({
       next:(response)=>{
         this.user=response;
+      },
+      error: (error) => {
+        // Handle error if necessary
+        console.error('Error fetching user data:', error);
       }
     });
 
@@ -28,6 +32,6 @@ export class NavbarComponent implements OnInit {
 
   onLogout():void{
     this.authservice.logout();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('Flight Booking');
   }
 }

@@ -31,9 +31,9 @@ if(token && user){
 
     //token is still valild
 
-    if(user.role.includes('Admin')){
+    if (user.role.includes('User') || user.role.includes('Admin')) {
       return true;
-    }
+  }
     else {
       alert ('Unauthorized');
       return false;

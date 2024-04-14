@@ -10,6 +10,7 @@ import { FirstPageComponent } from './Features/Common-Features/first-page/first-
 import { SearchComponent } from './Features/Common-Features/search/search.component';
 import { BookingComponent } from './Features/User/booking/booking.component';
 import { HistoryBookingComponent } from './Features/User/history-booking/history-booking.component';
+import { UserdetailsComponent } from './Features/User/userdetails/userdetails.component';
 
 const routes: Routes = [
   {
@@ -30,11 +31,17 @@ const routes: Routes = [
   },
   {
     path:'History/:email',
-    component:HistoryBookingComponent
+    component:HistoryBookingComponent,
+    canActivate:[authGuard]
+  },
+  {
+    path:'Manage Account/:email',
+    component:UserdetailsComponent
   },
   {
     path:'Search/Book Ticket/:aeroId',
-    component:BookingComponent
+    component:BookingComponent,
+    canActivate:[authGuard]
   },
   {
     path:'Management',
