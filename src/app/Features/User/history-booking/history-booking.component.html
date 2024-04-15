@@ -18,6 +18,14 @@ body {
 .booking-card {
   background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
 }
+
+    /* Adjust column widths */
+    .col {
+      width: 8%; /* Adjust the width as needed */
+    }
+    .col-5 {
+      width: 15%; /* Adjust the width as needed */
+    }
   </style>
 </head>
 <body>
@@ -28,20 +36,19 @@ body {
     <div *ngIf="booking && booking.length > 0" class="card booking-card mt-5">
       <h2 class="card-header">Booking Details</h2>
       <div class="card-body">
-        <div class="table-responsive">
           <table class="table table-bordered table-striped">
             <thead class="thead-dark">
               <tr>
-                  <th class="col-10">Aero Id</th>
-                  <th class="col-10">Source</th>
-                  <th class="col-10">Destination</th>
-                  <th class="col-15">Date</th>
-                  <th class="col-10">Passenger Id</th>
-                  <th class="col-15">Name</th>
-                  <th class="col-5">Gender</th>
-                  <th class="col-5">Age</th>
-                  <th class="col-10">Cancel flight</th>
-                  <th class="col-10">Check In</th>
+                  <th class="col-1">Aero Id</th>
+                  <th class="col-1">Source</th>
+                  <th class="col-1">Destination</th>
+                  <th class="col-5">Date</th>
+                  <th class="col-1">Passenger Id</th>
+                  <th class="col-1">Name</th>
+                  <th class="col-1">Gender</th>
+                  <th class="col-1">Age</th>
+                  <th class="col-1">Cancel flight</th>
+                  <th class="col-1">Check In</th>
               </tr>
           </thead>
             <tbody>
@@ -78,6 +85,5 @@ body {
     <div *ngIf="cancellationStatus" class="mt-3">
       <p>{{ cancellationStatus }}</p>
     </div>
-  </div>
 </body>
 </html>

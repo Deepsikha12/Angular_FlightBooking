@@ -1,41 +1,79 @@
-<div class="container">
-  <h1 class="mt-3">Flight List</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="d-flex justify-content-end mt-3">
-    <a [routerLink]="['Add Flights']" class="btn btn-primary">Add Flights</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .background-image {
+      background-image: url('https://images.pexels.com/photos/1493756/pexels-photo-1493756.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-image">
+    <div class="container">
+      <div class="card mt-3">
+        <h1 class="card-header">Flight List</h1>
+
+        <div class="card-body">
+          <div class="d-flex justify-content-end mb-3">
+            <a [routerLink]="['Add Flights']" class="btn btn-primary">Add Flights</a>
+          </div>
+
+          <ng-container *ngIf="flight">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Aeroplane Id</th>
+                  <th>Aeroplane Name</th>
+                  <th>Source</th>
+                  <th>Destination</th>
+                  <th>Departure</th>
+                  <th>Arrival</th>
+                  <th>Fare</th>
+                  <th>Seating Capacity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fl of flight">
+                  <td>{{fl.aeroId}}</td>
+                  <td>{{fl.aeroName}}</td>
+                  <td>{{fl.from_city}}</td>
+                  <td>{{fl.to_city}}</td>
+                  <td>{{fl.departure | date:'dd/MM/yyyy HH:mm'}}</td>
+                  <td>{{fl.arrival | date:'dd/MM/yyyy HH:mm'}}</td>
+                  <td>{{fl.fare}}</td>
+                  <td>{{fl.seatingCapacity}}</td>
+                  <td>
+                    <button class="btn btn-primary green-button" [routerLink]="['Edit',fl.aeroId]">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <ng-container *ngIf="flight">
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>Aeroplane Id</th>
-          <th>Aeroplane Name</th>
-          <th>Source</th>
-          <th>Destination</th>
-          <th>Departure</th>
-          <th>Arrival</th>
-          <th>fare</th>
-          <th>Seating Capacity</th>
-          <th> </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let fl of flight">
-          <td>{{fl.aeroId}}</td>
-          <td>{{fl.aeroName}}</td>
-          <td>{{fl.from_city}}</td>
-          <td>{{fl.to_city}}</td>
-          <td>{{fl.departure}}</td>
-          <td>{{fl.arrival}}</td>
-          <td>{{fl.fare}}</td>
-          <td>{{fl.seatingCapacity}}</td>
-          <td>
-            <button class="btn btn-primary green-button" [routerLink]="['Edit',fl.aeroId]">Edit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- JavaScript dependencies (jQuery, Popper.js, Bootstrap JS) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 
-  </ng-container>
-</div>
+</html>
+

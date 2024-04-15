@@ -48,8 +48,8 @@
             <p class="card-text"><strong>Aeroplane Id:</strong> {{ fl.aeroId }}</p>
             <p class="card-text"><strong>Source:</strong> {{ fl.from_city }}</p>
             <p class="card-text"><strong>Destination:</strong> {{ fl.to_city }}</p>
-            <p class="card-text"><strong>Departure:</strong> {{ fl.departure | date:'shortDate' }}</p>
-            <p class="card-text"><strong>Arrival:</strong> {{ fl.arrival | date:'shortDate' }}</p>
+            <p class="card-text"><strong>Departure:</strong> {{ fl.departure | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p class="card-text"><strong>Arrival:</strong> {{ fl.arrival | date:'dd/MM/yyyy HH:mm' }}</p>
             <p class="card-text"><strong>Fare:</strong> {{ fl.fare }}</p>
             <p class="card-text"><strong>Seating Capacity:</strong> {{ fl.seatingCapacity }}</p>
             <a [routerLink]="['Book Ticket',fl.aeroId]" class="btn btn-primary">Book Ticket</a>
