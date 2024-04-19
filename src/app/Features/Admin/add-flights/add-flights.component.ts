@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddFlight } from '../Models/Add-flights.model';
 import { FlightsService } from '../../Services/flights.service';
 import { Subscription } from 'rxjs';
@@ -31,6 +31,12 @@ export class AddFlightsComponent implements OnDestroy{
     };
   }
 
+  getCurrentDateTime(): string {
+    const now = new Date();
+    // Format the date and time as YYYY-MM-DDTHH:MM (required by datetime-local input)
+    const formattedDate = now.toISOString().slice(0, 16);
+    return formattedDate;
+  }
     // Function to reset form
     resetForm(form: NgForm) {
       form.resetForm();

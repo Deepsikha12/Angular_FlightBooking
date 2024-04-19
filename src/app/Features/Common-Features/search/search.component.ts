@@ -18,6 +18,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   flightSearchForm!: FormGroup;
   private subscriptions: Subscription[] = [];
   minDepartureDate?: Date;
+  searched: boolean = false;
+  errorMessage: string = ''; // Add errorMessage property
 
   constructor(
     private flightlistservice: FlightsService,
@@ -30,7 +32,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       from_city: [''],
       to_city: [''],
       departure: ['']
-    });
+    }, { validator: this.validateSourceDestination });
     this.minDepartureDate = new Date();
   }
 
@@ -50,18 +52,45 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    const { from_city, to_city,departure } = this.flightSearchForm.value;
+    const { from_city, to_city, departure } = this.flightSearchForm.value;
     this.subscriptions.push(
-      this.flightlistservice.searchFlights(from_city, to_city,departure)
+      this.flightlistservice.searchFlights(from_city, to_city, departure)
         .subscribe({
-          next: (response:any) => {
-            this.filteredFlights = response;
+          next: (response: any) => {
+            if (typeof response === 'string') {
+              // Handle string response (message)
+              this.filteredFlights = []; // Clear existing flights
+              this.errorMessage = response; // Display message
+              this.searched = true;
+            } else {
+              // Handle array response (flights)
+              this.filteredFlights = response;
+              this.searched = true;
+            }
           },
-          error: (error:any) => {
-            console.error('Error searching flights:', error);
+          error: (error: any) => {
+            if (error.status === 404) {
+              // Handle 404 error (no flights available)
+              this.filteredFlights = []; // Clear existing flights
+              this.errorMessage = 'No flights available for the selected criteria.'; // Display message
+              this.searched = true;
+            } else {
+              console.error('Error searching flights:', error);
+            }
           }
         })
     );
+  }
+
+
+  validateSourceDestination(formGroup: FormGroup) {
+    const source = formGroup.get('from_city')?.value;
+    const destination = formGroup.get('to_city')?.value;
+    if (source === destination) {
+      formGroup.get('to_city')?.setErrors({ sameAsSource: true });
+    } else {
+      formGroup.get('to_city')?.setErrors(null);
+    }
   }
 
   ngOnDestroy(): void {

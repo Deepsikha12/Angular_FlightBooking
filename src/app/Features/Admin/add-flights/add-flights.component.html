@@ -5,6 +5,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Flight Details</title>
+  <style>
+    body {
+      margin: 0; /* Remove default margin */
+      padding: 0;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoqhqcgssZ05I806vdJA77F0PWX4sukE9x5g&s'); /* Specify the path to your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background color with 70% opacity */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for the card */
+  color: white; /* Text color */
+}
+
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .text-danger {
+      color: red;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 
 <body>
@@ -13,88 +63,93 @@
     <form #form="ngForm" (ngSubmit)="OnSave(form)">
       <div class="mt-2">
 
-        <div class="mt-3">
+        <div class="form-group">
           <label class="form-label">Aeroplane Id</label>
-          <input type="text" id="aeroId" class="form-control" name="aeroId" [(ngModel)]="model.aeroId" required aeroId #aeroId ="ngModel">
+          <input type="text" id="aeroId" class="form-control" name="aeroId" [(ngModel)]="model.aeroId" required aeroId #aeroId="ngModel">
           <div *ngIf="aeroId.invalid && (aeroId.dirty || aeroId.touched)" class="text-danger">
-            <div *ngIf ="aeroId.errors?.['required']">
+            <div *ngIf="aeroId.errors?.['required']">
               AeroId is required.
             </div>
           </div>
         </div>
 
-
         <div class="form-group">
           <label for="aeroName">Aeroplane Name</label>
-          <input type="text" id="aeroName" class="form-control" name="aeroName" [(ngModel)]="model.aeroName" required aeroName #aeroName ="ngModel">
+          <input type="text" id="aeroName" class="form-control" name="aeroName" [(ngModel)]="model.aeroName" required aeroName #aeroName="ngModel">
           <div *ngIf="aeroName.invalid && (aeroName.dirty || aeroName.touched)" class="text-danger">
-            <div *ngIf ="aeroName.errors?.['required']">
+            <div *ngIf="aeroName.errors?.['required']">
               Aeroplane Name is required.
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
           <label class="form-label">Source</label>
           <input type="text" id="from_city" class="form-control" name="from_city" [(ngModel)]="model.from_city" required from_city #from_city="ngModel">
           <div *ngIf="from_city.invalid && (from_city.dirty || from_city.touched)" class="text-danger">
-            <div *ngIf ="from_city.errors?.['required']">
+            <div *ngIf="from_city.errors?.['required']">
               Source is required
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
+          <label class="form-label">Destination</label>
+          <input type="text" id="to_city" class="form-control" name="to_city" [(ngModel)]="model.to_city" required to_city #to_city="ngModel">
+          <div *ngIf="to_city.invalid && (to_city.dirty || to_city.touched)" class="text-danger">
+            <div *ngIf="to_city.errors?.['required']">
+              Destination is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-label">Departure</label>
-          <input type="datetime-local" id="departure" class="form-control" name="departure" [(ngModel)]="model.departure" required #departure="ngModel">
+          <input type="datetime-local" id="departure" class="form-control" name="departure" [(ngModel)]="model.departure" required departure #departure="ngModel" [min]="getCurrentDateTime()">
           <div *ngIf="departure.invalid && (departure.dirty || departure.touched)" class="text-danger">
             <div *ngIf="departure.errors?.['required']">
               Departure Time is required.
             </div>
-          </div>
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label">Departure</label>
-          <input type="datetime-local" id="departure" class="form-control" name="departure" [(ngModel)]="model.departure" required departure #departure="ngModel">
-          <div *ngIf="departure.invalid && (departure.dirty || departure.touched)" class="text-danger">
-            <div *ngIf ="departure.errors?.['required']">
-              Departure Time is required
+            <div *ngIf="departure.errors?.['min']">
+              Departure Time cannot be before the current date and time.
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
           <label class="form-label">Arrival</label>
-          <input type="datetime-local" id="arrival" class="form-control" name="arrival" [(ngModel)]="model.arrival" required arrival #arrival="ngModel">
+          <input type="datetime-local" id="arrival" class="form-control" name="arrival" [(ngModel)]="model.arrival" required arrival #arrival="ngModel" [min]="model.departure">
           <div *ngIf="arrival.invalid && (arrival.dirty || arrival.touched)" class="text-danger">
-            <div *ngIf ="arrival.errors?.['required']">
-              Arrival Time is required
+            <div *ngIf="arrival.errors?.['required']">
+              Arrival Time is required.
+            </div>
+            <div *ngIf="arrival.errors?.['min']">
+              Arrival Time cannot be before the Departure Time.
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
           <label class="form-label">Fare</label>
           <input type="number" id="fare" class="form-control" name="fare" [(ngModel)]="model.fare" required fare #fare="ngModel">
           <div *ngIf="fare.invalid && (fare.dirty || fare.touched)" class="text-danger">
-            <div *ngIf ="fare.errors?.['required']">
+            <div *ngIf="fare.errors?.['required']">
               Fare is required
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
           <label class="form-label">Seating Capacity</label>
           <input type="number" id="seatingCapacity" class="form-control" name="seatingCapacity" [(ngModel)]="model.seatingCapacity" required seatingCapacity #seatingCapacity="ngModel">
           <div *ngIf="seatingCapacity.invalid && (seatingCapacity.dirty || seatingCapacity.touched)" class="text-danger">
-            <div *ngIf ="seatingCapacity.errors?.['required']">
+            <div *ngIf="seatingCapacity.errors?.['required']">
               Seating Capacity is required
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="form-group">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
 
@@ -102,5 +157,6 @@
     </form>
   </div>
 </body>
+
 </html>
 

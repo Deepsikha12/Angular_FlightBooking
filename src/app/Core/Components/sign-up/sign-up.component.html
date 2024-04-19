@@ -6,35 +6,33 @@
   <title>Sign Up</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-body {
-  margin: 0; /* Remove default margin */
-  padding-top: 75px; /* Add padding to body to accommodate navbar height */
-  padding-left: 20px; /* Add padding to the left to move card near the navbar */
-  padding-bottom: 75px;
-  background-image: url('https://c4.wallpaperflare.com/wallpaper/656/169/227/sea-the-sky-flight-the-city-wallpaper-preview.jpg'); /* Path to your background image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-.card {
-  margin-top: 10px;
-  width: 480px; /* Reduced width */
-  height: auto;
-  max-height: calc(100vh - 50px); /* Adjusted maximum height */
-  overflow: hidden; /* Hide overflow content */
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 10px; /* Reduced padding */
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.card h1 {
-  font-size: 24px; /* Adjusted font size for h1 */
-}
-
-.card * {
-  font-size: 15px; /* Reduced font size for all elements inside the card */
-}
-
+    body {
+      margin: 0;
+      padding-top: 75px;
+      padding-left: 20px;
+      padding-bottom: 75px;
+      background-image: url('https://c4.wallpaperflare.com/wallpaper/656/169/227/sea-the-sky-flight-the-city-wallpaper-preview.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .card {
+      margin-top: 10px;
+      width: 480px;
+      height: auto;
+      max-height: calc(100vh - 50px);
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card h1 {
+      font-size: 24px;
+    }
+    .card * {
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
@@ -63,7 +61,7 @@ body {
               <div *ngIf="age.errors?.['required']">
                 Age is required.
               </div>
-              <div *ngIf="model.age === 0 && isAgeValid">
+              <div *ngIf="model.age === 0 ">
                 Age cannot be 0.
               </div>
             </div>
@@ -88,7 +86,6 @@ body {
             <select id="role" name="role" class="form-control" [(ngModel)]="model.role" required #role="ngModel">
               <option value="" disabled>Select a Role</option>
               <option value="User">User</option>
-              <!--option value="Admin">Admin</option-->
             </select>
             <div *ngIf="role.invalid && (role.dirty || role.touched)" class="text-danger">
               Role is required.
@@ -102,6 +99,12 @@ body {
       </form>
     </div>
   </div>
+
+  <!-- JavaScript files -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
 

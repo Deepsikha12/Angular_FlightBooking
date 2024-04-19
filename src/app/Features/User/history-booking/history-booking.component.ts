@@ -21,6 +21,7 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
   confirmationPopupVisible = false;
   cancellationAeroId = '';
   cancellationPassengerId = 0;
+  checkinPopupVisible = false;
 
   constructor(private route: ActivatedRoute,
               private bookingService: UserService,
@@ -51,13 +52,18 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
     this.bookingService.checkInFlight(aeroId, passengerId, email)
       .subscribe({
         next: () => {
-          this.checkinSuccess = true;
-          this.showPopup('Check-in successful!');
+          this.checkinPopupVisible = true;
+          this.checkinSuccess = true; // Set checkinSuccess to true after successful check-in
         },
         error: error => {
           console.error('Check-in error:', error);
         }
       });
+  }
+
+
+  closeCheckinPopup(): void {
+    this.checkinPopupVisible = false;
   }
 
   cancelBookingConfirmation(aeroId: string, passengerId: number): void {
@@ -73,14 +79,23 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
           this.cancellationStatus = 'Cancellation successful';
           this.refreshBookingDetails();
           this.confirmationPopupVisible = false;
+          // Set a timer to hide the cancellation status message after 5 seconds
+          setTimeout(() => {
+            this.cancellationStatus = '';
+          }, 5000);
         },
         error: error => {
           console.error('Cancellation error:', error);
           this.cancellationStatus = 'Cancellation failed';
           this.confirmationPopupVisible = false;
+          // Set a timer to hide the cancellation status message after 5 seconds
+          setTimeout(() => {
+            this.cancellationStatus = '';
+          }, 5000);
         }
       });
   }
+
 
   showPopup(message: string): void {
     this.popupMessage = message;

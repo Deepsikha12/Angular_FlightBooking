@@ -14,6 +14,10 @@ import { UserdetailsComponent } from './Features/User/userdetails/userdetails.co
 
 const routes: Routes = [
   {
+    path:'',
+    component:FirstPageComponent
+  },
+  {
     path:'Flight Booking',
     component:FirstPageComponent
   },

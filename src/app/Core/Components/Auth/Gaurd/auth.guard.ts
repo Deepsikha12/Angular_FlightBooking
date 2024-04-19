@@ -20,10 +20,12 @@ if(token && user){
   const decodedtoken : any=jwtDecode(token);
 
   //Check for token Expiration
-  const Expiration = decodedtoken.exp * 1000;
   const currentTime = new Date().getTime();
+  const oneDayMilliseconds = 24 * 60 * 60 * 1000; // milliseconds in a day
 
-  if(Expiration < currentTime){
+  const expiration = currentTime + oneDayMilliseconds;
+
+  if(expiration < currentTime){
     authService.logout();
   return router.createUrlTree(['Login'],{queryParams : {returnUrl : state.url }})
   }

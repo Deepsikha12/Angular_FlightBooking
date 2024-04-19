@@ -12,37 +12,32 @@ import { NgForm } from '@angular/forms';
 })
 export class SignUpComponent implements OnDestroy {
 
-  model: UserDetails = {
-    id: 0,
+  model = {
     email: '',
     age: 0,
     password: '',
     role: '',
   };
 
-  signUpSuccess: boolean = false;
-  isPasswordValid: boolean = true;
-  isAgeValid: boolean = true; // Track the validity of the age field
+  isAgeValid = true;
+  isPasswordValid = true;
   private addUsers?: Subscription;
 
   constructor(
-    private signUp: SignupLoginService,
     private router: Router
   ) {}
 
   OnSignUp(form: NgForm) {
     if (form.invalid || !this.isAgeValid || !this.isPasswordValid) {
-      // Form is invalid, do nothing
       return;
     }
 
-    this.addUsers = this.signUp.addUser(this.model)
-      .subscribe({
-        next: (response) => {
-          console.log('Successfully Signed Up');
-          this.router.navigateByUrl('Flight Booking')
-        }
-      });
+    
+    // Simulating signup success
+    setTimeout(() => {
+      alert('Your sign up was successful.');
+      this.router.navigateByUrl('Login');
+    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -57,5 +52,4 @@ export class SignUpComponent implements OnDestroy {
     const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{4,})$/;
     this.isPasswordValid = passwordPattern.test(this.model.password);
   }
-
 }
