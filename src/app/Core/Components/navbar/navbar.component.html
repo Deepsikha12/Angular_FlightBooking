@@ -1,46 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Example</title>
+  <link rel="stylesheet" href="navbar.component.css">
+</head>
+<body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="Flight Booking">Flight Booking</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" [routerLink]="['Search']">Search</a>
-        <ng-container *ngIf="user === undefined;else ShowLogout">
-          <!--Show Sign Up and Login button-->
-          <a class="nav-link" [routerLink]="['Sign Up']">Sign Up</a>
-          <a class="nav-link" [routerLink]="['Login']">Login</a>
-        </ng-container>
-
-        <ng-container *ngIf="user !== undefined && user?.role?.includes('Admin')">
-        <a class="nav-link" [routerLink]="['Management']">Management</a>
-      </ng-container>
-
-      <ng-container *ngIf="user !== undefined && user?.role?.includes('User')">
-        <a class="nav-link" [routerLink]="['History',user.email]">History</a>
-      </ng-container>
-
-      <ng-template #ShowLogout>
-        <div class="d-flex align-items-center">
-          <!--span>{{user?.email}}</span-->
-          <div class="dropdown ms-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span>{{user?.email}}</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" [routerLink]="['Manage Account',user?.email]">Manage Account</a>
-              <!--a class="dropdown-item" href="#" >Delete Account</a-->
-            </div>
-          </div>
-          <button class="btn btn-primary ms-3" (click)="onLogout()">Logout</button>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Flight Booking">Flight Booking</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" [routerLink]="['Search']">Search</a>
+          <ng-container *ngIf="user !== undefined && user?.role?.includes('User')">
+            <a class="nav-link" [routerLink]="['History',user.email]">History</a>
+          </ng-container>
+          <ng-container *ngIf="user !== undefined && user?.role?.includes('Admin')">
+            <a class="nav-link" [routerLink]="['Management']">Management</a>
+          </ng-container>
+          <ng-container *ngIf="user === undefined; else ShowLogout">
+            <!--Show Sign Up and Login button-->
+            <a class="nav-link" [routerLink]="['Sign Up']">Sign Up</a>
+            <a class="nav-link" [routerLink]="['Login']">Login</a>
+          </ng-container>
         </div>
-      </ng-template>
+      </div>
+      <div class="ml-auto">
+        <ng-template #ShowLogout>
+          <div class="d-flex align-items-center">
+            <div class="dropdown ms-3">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span>{{user?.email}}</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" [routerLink]="['Manage Account',user?.email]">Manage Account</a>
+                <!--a class="dropdown-item" href="#" >Delete Account</a-->
+              </div>
+            </div>
+            <button class="btn btn-primary ms-3" (click)="onLogout()">Logout</button>
+          </div>
+        </ng-template>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+
+</body>
+</html>
+
 
 
 

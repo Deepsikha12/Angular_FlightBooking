@@ -16,6 +16,7 @@ export class EditFlightsComponent implements OnInit,OnDestroy{
   paramsSubscription?:Subscription;
   updateSubscruption?:Subscription;
   flight?:Flight;
+  currentDate: Date = new Date(); // Get the current date
 
   constructor(private route:ActivatedRoute,
     private flightservice:FlightsService,
@@ -77,6 +78,12 @@ export class EditFlightsComponent implements OnInit,OnDestroy{
     }
   }
 
+  getCurrentDateTime(): string {
+    const now = new Date();
+    // Format the date and time as YYYY-MM-DDTHH:MM (required by datetime-local input)
+    const formattedDate = now.toISOString().slice(0, 16);
+    return formattedDate;
+  }
 
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();

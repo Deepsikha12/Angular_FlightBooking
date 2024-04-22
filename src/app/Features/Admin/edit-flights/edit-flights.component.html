@@ -1,65 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Flight Details</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      margin: 0; /* Remove default margin */
+      padding: 0;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoqhqcgssZ05I806vdJA77F0PWX4sukE9x5g&s'); /* Specify the path to your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin: 50px auto;
+      max-width: 800px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: medium;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    input[type="number"] {
+    font-size: 15px; /* Adjust the font size as needed */
+  }
+
+  .btn {
+  font-size: 18px; /* Adjust the size as needed */
+  }
+
+  </style>
+</head>
+
+<body>
+
 <div class="container">
-  <h1 class="mt-3">Edit Flight Details</h1>
+    <h1 class="card-header">Edit Flight Details</h1>
 
-  <ng-container *ngIf="flight;else notFound">
+    <ng-container *ngIf="flight; else notFound">
+      <form #from="ngForm" (ngSubmit)="OnEdit()" class="card-body">
+        <div class="mt-2">
+          <div class="mt-3">
+            <label class="form-label" for="aeroId">Aeroplane Id</label>
+            <input type="text" disabled id="aeroId" class="form-control" name="aeroId" [(ngModel)]="flight.aeroId">
+          </div>
 
-    <form #from="ngForm" (ngSubmit)="OnEdit()">
-      <div class="mt-2">
-        <div class="mt-3">
-          <label class="form-label" for="aeroId">Aeroplane Id</label>
-          <input type="text" disabled id="aeroId" class="form-control" name="aeroId" [(ngModel)]="flight.aeroId">
+          <div class="mt-3">
+            <label class="form-label" for="aeroName">Aeroplane Name</label>
+            <input type="text" id="aeroName" class="form-control" name="aeroName" [(ngModel)]="flight.aeroName">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="from_city">Source</label>
+            <input type="text" id="from_city" class="form-control" name="from_city" [(ngModel)]="flight.from_city">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="to_city">Destination</label>
+            <input type="text" id="to_city" class="form-control" name="to_city" [(ngModel)]="flight.to_city">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="departure">Departure</label>
+            <input type="datetime-local" id="departure" class="form-control" name="departure" [(ngModel)]="flight.departure" [min]="getCurrentDateTime()">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="arrival">Arrival</label>
+            <input type="datetime-local" id="arrival" class="form-control" name="arrival" [(ngModel)]="flight.arrival" [min]="flight.departure">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="fare">Fare</label>
+            <input type="number" id="fare" class="form-control" name="fare" [(ngModel)]="flight.fare">
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label" for="seatingCapacity">Seating Capacity</label>
+            <input type="number" id="seatingCapacity" class="form-control" name="seatingCapacity" [(ngModel)]="flight.seatingCapacity">
+          </div>
+
+          <div class="mt-3">
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn btn-primary btn-lg">Save</button>
+              </div>
+              <div class="col text-right"> <!-- Changed here -->
+                <button type="button" class="btn btn-danger btn-lg" (click)="OnDelete()">Delete</button>
+              </div>
+            </div>
+          </div>
         </div>
+      </form>
+    </ng-container>
 
-        <div class="mt-3">
-          <label class="form-label" for="aeroName">Aeroplane Name</label>
-          <input type="text" id="aeroName" class="form-control" name="aeroName" [(ngModel)]="flight.aeroName">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="from_city">Source</label>
-          <input type="text" id="from_city" class="form-control" name="from_city" [(ngModel)]="flight.from_city">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="to_city">Destinaton</label>
-          <input type="text" id="to_city" class="form-control" name="to_city" [(ngModel)]="flight.to_city">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="departure">Departure</label>
-          <input type="datetime-local" id="departure" class="form-control" name="departure" [(ngModel)]="flight.departure">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="arrival">Arrival</label>
-          <input type="datetime-local" id="arrival" class="form-control" name="arrival" [(ngModel)]="flight.arrival">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="fare">Fare</label>
-          <input type="number" id="fare" class="form-control" name="fare" [(ngModel)]="flight.fare">
-        </div>
-
-        <div class="mt-3">
-          <label class="form-label" for="seatingCapacity">Seating Capacity</label>
-          <input type="number" id="seatingCapacity" class="form-control" name="seatingCapacity" [(ngModel)]="flight.seatingCapacity">
-        </div>
-
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-
-        <div class="mt-3">
-          <button type="button" class="btn btn-danger ms-3 " (click)="OnDelete()">Delete</button>
-        </div>
+    <ng-template #notFound>
+      <div class="alert alert-warning card-body" role="alert">
+        No Flights Found!
       </div>
-    </form>
+    </ng-template>
+  </div>
 
-  </ng-container>
+</body>
+</html>
 
-  <ng-template #notFound>
-    <div class="alert alert-warning" role="alert">
-      No Flights Found!
-    </div>
-  </ng-template>
-</div>
+
+
+
