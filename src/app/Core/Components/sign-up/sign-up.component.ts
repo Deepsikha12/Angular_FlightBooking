@@ -13,6 +13,7 @@ import { NgForm } from '@angular/forms';
 export class SignUpComponent implements OnDestroy {
 
   model = {
+    id : 0,
     email: '',
     age: 0,
     password: '',
@@ -24,6 +25,7 @@ export class SignUpComponent implements OnDestroy {
   private addUsers?: Subscription;
 
   constructor(
+    private signUp: SignupLoginService,
     private router: Router
   ) {}
 
@@ -32,7 +34,14 @@ export class SignUpComponent implements OnDestroy {
       return;
     }
 
-    
+    this.addUsers = this.signUp.addUser(this.model)
+    .subscribe({
+      next: (response) => {
+        console.log('Successfully Signed Up');
+        this.router.navigateByUrl('Login')
+      }
+    });
+
     // Simulating signup success
     setTimeout(() => {
       alert('Your sign up was successful.');

@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   minDepartureDate?: Date;
   searched: boolean = false;
-  errorMessage: string = ''; // Add errorMessage property
+  errorMessage: string = ''; 
 
   constructor(
     private flightlistservice: FlightsService,

@@ -2,3 +2,9 @@
   margin: 0;
   padding: 0;
 }
+.navbar-nav .nav-link{
+  font-size: 15px;
+}
+.navbar-brand {
+  font-size: 15px; /* Adding this line to set font size for navbar brand */
+}

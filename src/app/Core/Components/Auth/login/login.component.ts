@@ -53,7 +53,7 @@ export class LoginComponent {
           role: response.user.role
         });
         // Redirect to home page
-        this.router.navigateByUrl('Flight Booking');
+        this.router.navigateByUrl('Search');
       },
       error: (err) => {
         // If login fails, display error message
