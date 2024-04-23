@@ -65,18 +65,20 @@ export class EditFlightsComponent implements OnInit,OnDestroy{
     }
   }
 
-  OnDelete():void{
-    if(this.aeroId)
-    {
-    this.flightservice.deleteflight(this.aeroId)
-    .subscribe({
-      next:(response)=>{
-        console.log(response)
-        this.router.navigateByUrl('Management');
-      }
-    })
+  OnDelete(): void {
+    if (this.aeroId) {
+      this.flightservice.deleteflight(this.aeroId)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          // Show alert box
+          alert('Flight has been successfully deleted!');
+          this.router.navigateByUrl('Management');
+        }
+      });
     }
   }
+
 
   getCurrentDateTime(): string {
     const now = new Date();

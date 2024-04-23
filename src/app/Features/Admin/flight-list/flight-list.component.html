@@ -15,9 +15,22 @@
     }
 
     .card {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-    }
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+.card-header,
+.card-body {
+  font-size: inherit; /* Inherit font size from the parent card */
+}
+.card button {
+  font-size: inherit; /* Inherit font size from the parent card */
+  /*padding: 10px 20px; /* Adjust padding to increase button size */
+}
+.h1{
+  font-size: large;
+}
   </style>
 </head>
 
@@ -29,7 +42,7 @@
 
         <div class="card-body">
           <div class="d-flex justify-content-end mb-3">
-            <a [routerLink]="['Add Flights']" class="btn btn-primary">Add Flights</a>
+            <a [routerLink]="['Add Flights']" class="btn btn-primary btn-lg">Add Flights</a>
           </div>
 
           <ng-container *ngIf="flight">
@@ -58,7 +71,7 @@
                   <td>{{fl.fare}}</td>
                   <td>{{fl.seatingCapacity}}</td>
                   <td>
-                    <button class="btn btn-primary green-button" [routerLink]="['Edit',fl.aeroId]">Edit</button>
+                    <button class="btn btn-success " [routerLink]="['Edit',fl.aeroId]">Edit</button>
                   </td>
                 </tr>
               </tbody>
@@ -74,6 +87,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
 

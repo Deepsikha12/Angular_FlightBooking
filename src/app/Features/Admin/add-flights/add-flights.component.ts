@@ -49,15 +49,27 @@ export class AddFlightsComponent implements OnDestroy{
     }
 
 
-  OnSave(form: NgForm){
-    this.addflightsubscription=this.flightService.addflight(this.model)
-    .subscribe({
-      next:(response)=>{
-        this.router.navigateByUrl('Management');
-        console.log('Flights Added Successfully');
+    OnSave(form: NgForm){
+      if (this.model.from_city === this.model.to_city) {
+        // Set custom errors for source and destination being the same
+        form.controls['from_city'].setErrors({ 'sameAsDestination': true });
+        form.controls['to_city'].setErrors({ 'sameAsSource': true });
+        return; // Exit the function early if validation fails
       }
-    });
-  }
+
+      this.addflightsubscription=this.flightService.addflight(this.model)
+        .subscribe({
+          next:(response)=>{
+            // Display alert box
+            alert('Flight details have been successfully added!');
+            // Redirect to the management page
+            this.router.navigateByUrl('Management');
+            console.log('Flights Added Successfully');
+          }
+        });
+    }
+
+
 
   ngOnDestroy(): void {
     this.addflightsubscription?.unsubscribe();

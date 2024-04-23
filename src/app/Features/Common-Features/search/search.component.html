@@ -111,8 +111,8 @@
   </div>
 
   <div class="row mt-3" *ngIf="searched && filteredFlights && filteredFlights.length === 0">
-    <div class="col-md-12">
-      <p>{{ errorMessage }}</p>
+    <div class="alert alert-danger" role="alert">
+      <h4>{{errorMessage}}</h4>
     </div>
   </div>
 
