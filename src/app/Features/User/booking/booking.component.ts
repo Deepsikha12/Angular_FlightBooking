@@ -19,7 +19,8 @@ export class BookingComponent implements OnInit, OnDestroy {
   bookingDetails?: any; // Change this type according to your BookingDetails model
   bookForm: FormGroup;
   bookingSuccessful: boolean = false;
-  user?:User
+  user?:User;
+  processingPayment: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,6 +81,9 @@ export class BookingComponent implements OnInit, OnDestroy {
   }
 
   Addpassengers(): void {
+    this.processingPayment = true;
+
+    setTimeout(() =>{
     const formData = this.bookForm.value;
     const userEmail = this.loginService.getUser()?.email;
     console.log(userEmail)
@@ -107,13 +111,16 @@ export class BookingComponent implements OnInit, OnDestroy {
     this.bookingservice.addBooking(bookingWithPassenger).subscribe({
       next: (response: any) => {
         console.log('Booking with passenger added successfully');
-        this.bookingSuccessful = true; // Set bookingSuccessful to true after successful booking
+        this.bookingSuccessful = true;
+        this.processingPayment = false; // Set bookingSuccessful to true after successful booking
       },
       error: (error: any) => {
         console.error('Error adding booking with passenger:', error);
+        this.processingPayment = false;
         // Handle error message or any error-specific actions
       }
     });
+  },10000);
   }
 
   ngOnDestroy(): void {
