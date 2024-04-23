@@ -95,6 +95,25 @@
   padding: 10px 40px;
   margin-right: 5px;
 }
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.loading-spinner .spinner-border {
+  margin-bottom: 20px;
+}
+
 
   </style>
 </head>
@@ -165,5 +184,12 @@
     <p>Check-in successful! Please check your Email</p>
     <button (click)="closeCheckinPopup()" class="btn btn-primary">Close</button>
   </div>
+  <div *ngIf="checkinInProgress" class="loading-spinner">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p>Processing check-in...</p>
+  </div>
+  
 </body>
 </html>

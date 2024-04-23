@@ -22,6 +22,7 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
   cancellationAeroId = '';
   cancellationPassengerId = 0;
   checkinPopupVisible = false;
+  checkinInProgress = false;
 
   constructor(private route: ActivatedRoute,
               private bookingService: UserService,
@@ -49,14 +50,17 @@ export class HistoryBookingComponent implements OnInit, OnDestroy {
   }
 
   checkIn(aeroId: string, passengerId: number, email: string): void {
+    this.checkinInProgress = true; // Set check-in progress to true when check-in is initiated
     this.bookingService.checkInFlight(aeroId, passengerId, email)
       .subscribe({
         next: () => {
           this.checkinPopupVisible = true;
-          this.checkinSuccess = true; // Set checkinSuccess to true after successful check-in
+          this.checkinSuccess = true;
+          this.checkinInProgress = false; // Set check-in progress to false when check-in is completed
         },
         error: error => {
           console.error('Check-in error:', error);
+          this.checkinInProgress = false; // Set check-in progress to false if check-in fails
         }
       });
   }
